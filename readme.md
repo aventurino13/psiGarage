@@ -98,12 +98,18 @@ pool.connect( function( err, connection, done ){
   //check if there was an Error
   if( err ){
     console.log( err );
+    // respond with PROBLEM!
     res.send( 400 );
   }// end Error
   else{
     console.log('connected to db');
+    // close connection to reopen spot in pool
     done();
+    // respond with OK
     res.send( 200 );
   } // end no error
 }); //end pool
 ```
+
+- restart server
+- check that the console logs to see if connection to db is working

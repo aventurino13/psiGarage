@@ -37,21 +37,31 @@ app.get( '/cars', function( req, res ){
   console.log( 'cars get route hit' );
 
   // array of cars
-  var cars = [];
+  var allCars = [];
   // connect to db
   pool.connect( function( err, connection, done ){
     //check if there was an Error
     if( err ){
       console.log( err );
+      // respond with PROBLEM!
       res.send( 400 );
     }// end Error
     else{
       console.log('connected to db');
-      done();
-      res.send( 200 );
+      // send query for all cars in the 'cars' table and hold in a variable (resultSet)
+      var resultSet = connection.query( "SELECT * from cars" );
+      // convert each row into an object in the allCars array
+      // on each row, push the row into allCars
+      resultSet.on( 'row', function( row ){
+        allCars.push( row );
+      }); //end on row
+      // on end of rows send array as response
+      resultSet.on( 'end', function(){
+        // close connection to reopen spot in pool
+        done();
+        // res.send array of cars
+        res.send( allCars );
+      }); //end on end
     } // end no error
   }); //end pool
-  // send query for all cars
-  // res.send array of cars
-
 }); //end cars get
