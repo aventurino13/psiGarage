@@ -92,3 +92,18 @@ In the get /cars route:
 
 - connect to db with pool
 - send back to client connection status
+
+```
+pool.connect( function( err, connection, done ){
+  //check if there was an Error
+  if( err ){
+    console.log( err );
+    res.send( 400 );
+  }// end Error
+  else{
+    console.log('connected to db');
+    done();
+    res.send( 200 );
+  } // end no error
+}); //end pool
+```
