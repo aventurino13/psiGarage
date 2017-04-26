@@ -113,3 +113,41 @@ pool.connect( function( err, connection, done ){
 
 - restart server
 - check that the console logs to see if connection to db is working
+
+Getting data from the db:
+
+- update pool connect to check if there is an error
+- if no error hold the result set in a variable
+- push each row in the result set into an array
+- on result set end: close connection with done() and res.send the array
+
+```javascript
+pool.connect( function( err, connection, done ){
+  //check if there was an Error
+  if( err ){
+    console.log( err );
+    // respond with PROBLEM!
+    res.send( 400 );
+  }// end Error
+  else{
+    console.log('connected to db');
+    // send query for all cars in the 'cars' table and hold in a variable (resultSet)
+    var resultSet = connection.query( "SELECT * from cars" );
+    // convert each row into an object in the allCars array
+    // on each row, push the row into allCars
+    resultSet.on( 'row', function( row ){
+      allCars.push( row );
+    }); //end on row
+    // on end of rows send array as response
+    resultSet.on( 'end', function(){
+      // close connection to reopen spot in pool
+      done();
+      // res.send array of cars
+      res.send( allCars );
+    }); //end on end
+  } // end no error
+}); //end pool
+```
+
+- restart server
+- add some dummy data to the table on db and it should show up on the DOM when refreshed
