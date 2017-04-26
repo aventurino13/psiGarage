@@ -73,7 +73,7 @@ In server.js:
 - add pool config object
 - create new pool with this config
 
-```
+```javascript
 var pg = require( 'pg' );
 
 // setup config for the pool
@@ -93,7 +93,7 @@ In the get /cars route:
 - connect to db with pool
 - send back to client connection status
 
-```
+```javascript
 pool.connect( function( err, connection, done ){
   //check if there was an Error
   if( err ){
