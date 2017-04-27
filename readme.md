@@ -151,3 +151,25 @@ pool.connect( function( err, connection, done ){
 
 - restart server
 - add some dummy data to the table on db and it should show up on the DOM when refreshed
+
+Add user input to db
+- Add in else statment (if no error) in post route in server
+```
+connection.query("INSERT into tableName(columnName1, columnName2) values($1, $2)", [ req.body.objectKeyName1, req.body.objectKeyName1] );
+// $1 is a wildcard
+
+   EXAMPLE : 
+   app.post ('/koalas', function (req, res){
+    console.log( req.body );
+    connect ( function (err, connection, done ){
+    if (err) {
+     res.send ( 400 );
+    } else {
+      console.log('connected to db');
+      connection.query("INSERT into koalas(name, age) values($1, $2)", [ req.body.name, req.body.age] );
+      done(); //close connection
+      res.send ( 200 );
+     }// end else
+    });//end pool connect
+   });//end route
+```
