@@ -175,3 +175,29 @@ connection.query("INSERT into tableName(columnName1, columnName2) values($1, $2)
     });//end pool connect
    });//end route
 ```
+ URL Params and Query Params
+ ---
+ URL params
+ - Allows you to make more specific GET requests
+ - Ex: facebook.com/username --> gives you just that users information instead of all information from server
+```javascript
+//http://localhost:3000/test/45
+   app.get('/test/:id' , function ( req, res ){
+    console.log (req.params);
+     //--> { id : '76' }
+    console.log (req.params.id);
+     //--> { '76' }
+  }
+
+```
+
+Query Params
+ - ```?key=value``` --> query string
+
+```javascript
+//http://localhost:3000/testQuery?name=bob
+     app.get('/testQuery' , function ( req, res ){
+       console.log (req.query);
+     //--> { id : '76' }
+
+```
