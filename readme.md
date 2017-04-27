@@ -115,6 +115,7 @@ pool.connect( function( err, connection, done ){
 - check that the console logs to see if connection to db is working
 
 Getting data from the db:
+---
 
 - update pool connect to check if there is an error
 - if no error hold the result set in a variable
@@ -152,9 +153,10 @@ pool.connect( function( err, connection, done ){
 - restart server
 - add some dummy data to the table on db and it should show up on the DOM when refreshed
 
-Add user input to db
+Add data to db
+---
 - Add in else statment (if no error) in post route in server
-```
+```javascript
 connection.query("INSERT into tableName(columnName1, columnName2) values($1, $2)", [ req.body.objectKeyName1, req.body.objectKeyName1] );
 // $1 is a wildcard
 
