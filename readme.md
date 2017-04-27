@@ -158,9 +158,9 @@ Add data to db
 - Add in else statment (if no error) in post route in server
 ```javascript
 connection.query("INSERT into tableName(columnName1, columnName2) values($1, $2)", [ req.body.objectKeyName1, req.body.objectKeyName1] );
-// $1 is a wildcard
+  // $1 and $2 are wildcard cards (ie. $1, $2, $3 etc)
 
-   EXAMPLE : 
+ EXAMPLE : 
    app.post ('/koalas', function (req, res){
     console.log( req.body );
     connect ( function (err, connection, done ){
